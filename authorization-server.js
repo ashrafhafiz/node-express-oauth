@@ -67,6 +67,13 @@ app.get("/authorize", (req, res) => {
     return res.status(401).send("Error: Invalid scopes requested");
   }
 
+  const requestId = randomString();
+  requests[requestId] = req.query;
+  res.render("login", {
+    client,
+    scope: req.query.scope,
+    requestId,
+  });
   return res.end(200);
 });
 
