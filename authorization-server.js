@@ -53,7 +53,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /*
 Your code here
 */
-app.get("/authorize", (req, res) => {
+app.get("/authorize?client_id", (req, res) => {
+  const clientId = req.query.client_id;
+  if (!clients[clientId]) {
+    return res.status(401);
+  }
   return res.end(200);
 });
 
