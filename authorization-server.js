@@ -59,6 +59,15 @@ app.get("/authorize", (req, res) => {
   if (!client) {
     return res.status(401).send("Error: client not authorized");
   }
+
+  if (
+    (typeof req.query.scopes !== "string" ||
+      !containsAll(client.scopes, scopes),
+    req.query.scopes.split(" "))
+  ) {
+    return res.status(401).send("Error: Invalid scopes requested");
+  }
+
   return res.end(200);
 });
 
