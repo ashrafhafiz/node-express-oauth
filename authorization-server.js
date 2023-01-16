@@ -69,12 +69,11 @@ app.get("/authorize", (req, res) => {
 
   const requestId = randomString();
   requests[requestId] = req.query;
-  res.render("login", {
+  return res.render("login", {
     client,
     scope: req.query.scope,
     requestId,
   });
-  return res.end(200);
 });
 
 const server = app.listen(config.port, "localhost", function () {
